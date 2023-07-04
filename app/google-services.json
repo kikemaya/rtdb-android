@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680819098300",
+    "project_id": "prueba-rtdb",
+    "storage_bucket": "prueba-rtdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680819098300:android:648ed2f3cd39ce1ef546b9",
+        "android_client_info": {
+          "package_name": "com.kikemaya.myappforcert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680819098300-5okjdvbe32omi24qipuvvihnfoc35vsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk_DZxBswCR1Tl3Q1kUcFFca1E3MsJmRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680819098300-5okjdvbe32omi24qipuvvihnfoc35vsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
