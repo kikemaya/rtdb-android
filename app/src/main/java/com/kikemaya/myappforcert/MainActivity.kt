@@ -1,49 +1,50 @@
 package com.kikemaya.myappforcert
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.kikemaya.myappforcert.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var editTextName: EditText
-    lateinit var buttonSend: Button
-    lateinit var textViewName: TextView
+    private var firebaseDatabase: FirebaseDatabase? = null
+    private var databaseReference: DatabaseReference? = null
 
-    // Write a message to the database
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val reference: DatabaseReference = database.reference.child("Users")
-    val reference2: DatabaseReference = database.reference
-
+    lateinit var mainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        editTextName = findViewById(R.id.editTextName)
-        buttonSend = findViewById(R.id.buttonSend)
-        textViewName = findViewById(R.id.textViewName)
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val view = mainBinding.root
+        setContentView(view)
 
-        reference2.addValueEventListener(object : ValueEventListener {
+        mainBinding.floatingActionButton.setOnClickListener {
+            val intent = Intent(this, AddUserActivity::class.java)
+            startActivity(intent)
+        }
+
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        databaseReference = firebaseDatabase?.getReference("Users")
+
+        getData()
+    }
+
+    private fun getData() {
+        databaseReference?.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val realName: String = snapshot.child("Users").child("name").value as String
-                textViewName.text = realName
+                Log.e("aaaaaaa", "onDataChange: $snapshot")
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+              Log.e("oooo", "onCancelled: ${error.toException()}")
             }
-        })
 
-        buttonSend.setOnClickListener {
-            val userName: String = editTextName.text.toString()
-            reference.child("userName").setValue(userName)
-        }
+        })
     }
 }
