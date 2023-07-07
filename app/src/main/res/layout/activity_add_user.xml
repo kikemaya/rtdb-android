@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddUserActivity"
+    android:background="@color/backgroundPrimary"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:paddingTop="50dp"
+    tools:context=".AddUserActivity">
 
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
+        android:background="@color/backgroundSecondary"
         android:ems="10"
-        android:hint="Enter Name"
+        android:hint="Name"
         android:inputType="text"
+        android:paddingStart="20dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_margin="10dp"
+        android:background="@color/backgroundSecondary"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="phone"
+        android:paddingStart="20dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         android:textSize="20sp" />
 
     <EditText
@@ -24,9 +43,13 @@
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
+        android:background="@color/backgroundSecondary"
         android:ems="10"
-        android:hint="Enter Age"
+        android:hint="Age"
         android:inputType="number"
+        android:paddingStart="20dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         android:textSize="20sp" />
 
     <EditText
@@ -34,9 +57,13 @@
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
+        android:background="@color/backgroundSecondary"
         android:ems="10"
-        android:hint="Enter Email"
+        android:hint="Email"
         android:inputType="textEmailAddress"
+        android:paddingStart="20dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         android:textSize="20sp" />
 
     <Button
@@ -44,6 +71,8 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
+        android:backgroundTint="@color/accent"
         android:text="Add User"
         android:textSize="18sp" />
+
 </LinearLayout>

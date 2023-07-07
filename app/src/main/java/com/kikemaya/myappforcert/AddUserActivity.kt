@@ -23,7 +23,7 @@ class AddUserActivity : AppCompatActivity() {
 
         setContentView(view)
 
-        supportActionBar?.title = "Add User"
+        supportActionBar?.title = "Add contact"
 
         addUserBinding.buttonAddUser.setOnClickListener {
             addUserToDatabase()
@@ -35,10 +35,11 @@ class AddUserActivity : AppCompatActivity() {
         val name: String = addUserBinding.editTextName.text.toString()
         val age: Int = addUserBinding.editTextAge.text.toString().toInt()
         val email: String = addUserBinding.editTextEmail.text.toString()
+        val phone: String = addUserBinding.editTextPhone.text.toString()
 
         val id: String = myReference.push().key.toString()
 
-        val user = Users(id, name, age, email)
+        val user = Users(id, name, phone, age, email)
 
         myReference.child(id).setValue(user).addOnCompleteListener { task ->
 

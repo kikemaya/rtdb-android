@@ -21,7 +21,7 @@ class UpdateUserActivity : AppCompatActivity() {
 
         setContentView(view)
 
-        supportActionBar?.title = "Update User"
+        supportActionBar?.title = "Update contact"
 
         getAndSetData()
 
@@ -33,9 +33,11 @@ class UpdateUserActivity : AppCompatActivity() {
     fun getAndSetData() {
         val name = intent.getStringExtra("name")
         val age = intent.getIntExtra("age", 0).toString()
+        val phone = intent.getStringExtra("phone")
         val email = intent.getStringExtra("email")
 
         updateUserBinding.editTextUpdateName.setText(name)
+        updateUserBinding.editTextUpdatePhone.setText(phone)
         updateUserBinding.editTextUpdateAge.setText(age)
         updateUserBinding.editTextUpdateEmail.setText(email)
     }
@@ -44,12 +46,14 @@ class UpdateUserActivity : AppCompatActivity() {
         val updatedName = updateUserBinding.editTextUpdateName.text.toString()
         val updatedAge = updateUserBinding.editTextUpdateAge.text.toString().toInt()
         val updatedEmail = updateUserBinding.editTextUpdateEmail.text.toString()
+        val updatedPhone = updateUserBinding.editTextUpdatePhone.text.toString()
 
         val userId = intent.getStringExtra("id").toString()
 
         val userMap = mutableMapOf<String, Any>()
         userMap["userId"] = userId
         userMap["userName"] = updatedName
+        userMap["userPhone"] = updatedPhone
         userMap["userAge"] = updatedAge
         userMap["userEmail"] = updatedEmail
 

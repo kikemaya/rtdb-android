@@ -3,7 +3,6 @@ package com.kikemaya.myappforcert
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kikemaya.myappforcert.databinding.UsersItemBinding
@@ -20,14 +19,16 @@ class UsersAdapter(var context: Context, var userList: ArrayList<Users>) :
 
     //TRANSFER DE DATA IN THE ARRAY TO THE COMPONENTS
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        holder.adapterBinding.textViewName.text = userList[position].userName
-        holder.adapterBinding.textViewAge.text = userList[position].userAge.toString()
-        holder.adapterBinding.textViewEmail.text = userList[position].userEmail
+        holder.adapterBinding.textViewName.text = "Name: ${userList[position].userName}"
+        holder.adapterBinding.textViewPhone.text = "Phone: ${userList[position].userPhone}"
+        holder.adapterBinding.textViewAge.text = "Age: ${userList[position].userAge.toString()}"
+        holder.adapterBinding.textViewEmail.text = "Email: ${userList[position].userEmail}"
 
         holder.adapterBinding.linearLayout.setOnClickListener {
             val intent = Intent(context, UpdateUserActivity::class.java)
             intent.putExtra("id", userList[position].userId)
             intent.putExtra("name", userList[position].userName)
+            intent.putExtra("phone", userList[position].userPhone)
             intent.putExtra("age", userList[position].userAge)
             intent.putExtra("email", userList[position].userEmail)
 
