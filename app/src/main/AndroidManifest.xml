@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,13 +16,12 @@
         android:theme="@style/Theme.MyAppForCert"
         tools:targetApi="31">
         <activity
-            android:name=".UpdateUserActivity"
-            android:exported="false" />
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:parentActivityName=".LoginActivity"
+            />
         <activity
-            android:name=".AddUserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +29,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UpdateUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

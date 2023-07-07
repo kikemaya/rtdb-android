@@ -5,6 +5,8 @@
     <item
         android:id="@+id/deleteAll"
         android:icon="@drawable/delete_icon"
-        android:title="Delete all users"
-        app:showAsAction="always|withText" />
+        android:title="Delete all users" />
+    <item
+        android:id="@+id/signOut"
+        android:title="Sign Out" />
 </menu>
