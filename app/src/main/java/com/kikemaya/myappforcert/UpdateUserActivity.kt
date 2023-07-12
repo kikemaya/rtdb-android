@@ -3,6 +3,7 @@ package com.kikemaya.myappforcert
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.kikemaya.myappforcert.databinding.ActivityUpdateUserBinding
@@ -11,8 +12,10 @@ class UpdateUserActivity : AppCompatActivity() {
 
     lateinit var updateUserBinding: ActivityUpdateUserBinding
 
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val myReference: DatabaseReference = database.reference.child("MyUsers")
+    val myReference: DatabaseReference = database.reference.child("MyUsers").child(auth.currentUser!!.uid)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

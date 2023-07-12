@@ -5,7 +5,8 @@ data class Users(
     val userName: String = "",
     val userPhone: String = "",
     val userAge: Int = 0,
-    val userEmail: String = ""
+    val userEmail: String = "",
+    val contactOwner: String = ""
 ) {
 
 }

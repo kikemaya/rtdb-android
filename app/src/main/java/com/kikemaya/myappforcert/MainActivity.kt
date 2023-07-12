@@ -18,12 +18,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import com.kikemaya.myappforcert.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var mainBinding: ActivityMainBinding
+
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val myReference: DatabaseReference = database.reference.child("MyUsers")
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val id = usersAdapter.getUserId(viewHolder.adapterPosition)
 
-                myReference.child(id).removeValue()
+                myReference.child(auth.currentUser!!.uid).child(id).removeValue()
 
                 Toast.makeText(applicationContext, "The user was deleted", Toast.LENGTH_SHORT)
                     .show()
@@ -67,21 +68,27 @@ class MainActivity : AppCompatActivity() {
 
 
     fun retrieveDataFromDatabase() {
-        myReference.addValueEventListener(object : ValueEventListener {
+        myReference.child(auth.currentUser!!.uid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 userList.clear()
 
                 for (eachUser in snapshot.children) {
-                    val user = eachUser.getValue(Users::class.java)
+                    if (eachUser.child("contactOwner").value == auth.currentUser?.uid) {
+                        val user = eachUser.getValue(Users::class.java)
 
-                    if (user != null) {
-                        userList.add(user)
+                        if (user != null) {
+                            userList.add(user)
+                        }
+
+                        usersAdapter = UsersAdapter(this@MainActivity, userList)
+                        mainBinding.recyclerView.layoutManager =
+                            LinearLayoutManager(this@MainActivity)
+                        mainBinding.recyclerView.adapter = usersAdapter
+
+                        Log.e("USER", "${eachUser.child("contactOwner").value}")
                     }
 
-                    usersAdapter = UsersAdapter(this@MainActivity, userList)
-                    mainBinding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                    mainBinding.recyclerView.adapter = usersAdapter
                 }
             }
 
@@ -123,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         dialogMessage.setPositiveButton(
             " Yes",
             DialogInterface.OnClickListener { dialogInterface, i ->
-                myReference.removeValue().addOnCompleteListener { task ->
+                myReference.child(auth.currentUser!!.uid).removeValue().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         usersAdapter.notifyDataSetChanged()
                         Toast.makeText(

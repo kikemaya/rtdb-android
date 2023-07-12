@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.kikemaya.myappforcert.databinding.ActivityAddUserBinding
@@ -11,6 +12,8 @@ import com.kikemaya.myappforcert.databinding.ActivityAddUserBinding
 class AddUserActivity : AppCompatActivity() {
 
     lateinit var addUserBinding: ActivityAddUserBinding
+
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val myReference: DatabaseReference = database.reference.child("MyUsers")
@@ -37,11 +40,13 @@ class AddUserActivity : AppCompatActivity() {
         val email: String = addUserBinding.editTextEmail.text.toString()
         val phone: String = addUserBinding.editTextPhone.text.toString()
 
+        val contactOwner: String = auth.currentUser!!.uid
+
         val id: String = myReference.push().key.toString()
 
-        val user = Users(id, name, phone, age, email)
+        val user = Users(id, name, phone, age, email, contactOwner)
 
-        myReference.child(id).setValue(user).addOnCompleteListener { task ->
+        myReference.child(auth.currentUser!!.uid).child(id).setValue(user).addOnCompleteListener { task ->
 
             if (task.isSuccessful) {
                 Toast.makeText(
